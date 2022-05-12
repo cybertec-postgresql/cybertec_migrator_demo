@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -e
+
+shopt -s nullglob
+
+ENV_FILE='./.env'
+
+# Change working directory to directory that contains script
+cd "${0%/*}"
+
+# Create an .env file if it does not exist
+if [ ! -f "${ENV_FILE}" ]; then
+	cat <<EOF > "${ENV_FILE}"
+# —— User configurable ——
+EXTERNAL_DEMO_POSTGRES_PORT=5432
+EXTERNAL_DEMO_ORACLE_PORT=1521
+EOF
+
+  	chmod 600 "${ENV_FILE}"
+  	printf 'Generated environment file\n'
+fi;
+
+catch_all_exit_code=1
+case "${1}" in
+'up')
+	if [ "${2}" ]; then
+		docker-compose up -d ${2}
+	else
+		>&2 printf "Missing argument for database\n"
+	fi;
+	;;
+'down')
+	docker-compose down
+	;;
+'logs')
+	docker-compose logs
+	;;
+'help')
+	catch_all_exit_code='0'
+	;&
+*)
+	printf "$(cat <<EOF
+up {demo_db | oracle}                  Start PostgreSQL or Oracle demo database
+down                                   Stop PostgreSQL and Oracle demo database
+logs                                   Print PostgreSQL and Oracle demo database logs
+
+help                                   Display this help text
+EOF
+)\n"
+	exit "${catch_all_exit_code}"
+esac

@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  # Demo postgres database
+  demo_db:
+    image: docker.io/postgres:13-alpine
+    environment:
+      # —— Postgres settings ——
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+    ports:
+      - ${EXTERNAL_DEMO_POSTGRES_PORT}:5432
+    networks:
+      - common
+
+  # Demo oracle database
+  oracle:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    environment:
+      # Password for SYS, SYSTEM, and PDB_ADMIN
+      - ORACLE_PWD=password
+    ports:
+      - ${EXTERNAL_DEMO_ORACLE_PORT}:1521
+    volumes:
+      - ./oracle:/docker-entrypoint-initdb.d/startup
+    networks:
+      - common
+
+networks:
+  common:
+    external:
+      name: cybertec_migrator-network
