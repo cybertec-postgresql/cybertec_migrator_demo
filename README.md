@@ -12,12 +12,12 @@
   <a href="#contact">Contact</a>
 </p>
 
-This repository facilitates the setup of a database environment so you can make a test-run with the [_CYBERTEC Migrator_](https://www.cybertec-postgresql.com/en/products/cybertec-migrator/), an user-friendly tool that helps you to organize and efficiently migrate Oracle databases to PostgreSQL.
+This repository facilitates the setup of a database environment that may be used in a test-run of the [_CYBERTEC Migrator_](https://www.cybertec-postgresql.com/en/products/cybertec-migrator/), a user-friendly tool that helps you to organize and efficiently migrate Oracle databases to PostgreSQL.
 
 Use the `demo-env` script to
 - start a PostgreSQL instance with a `demo` database
 - start an Oracle Express Edition instance containing the HR demo schema
-- stop both database instance
+- stop both database instances
 
 Both database management systems are provided as container images.
 The provided configuration does not use volume containers, which means changes to the databases are not persisted when restarting the instances.
