@@ -29,5 +29,5 @@ services:
 
 networks:
   common:
-    name: cybertec_migrator-network
     external: true
+    name: ${NETWORK_NAME}
