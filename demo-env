@@ -24,14 +24,20 @@ fi;
 catch_all_exit_code=1
 case "${1}" in
 'up')
-	if [ "${2}" ]; then
-		docker-compose up -d ${2}
-	else
+	if [ ! "${2}" ]; then
+		>&2 printf "Missing argument for docker network (see \"docker network ls\")\n"
+	elif [ ! "${3}" ]; then
 		>&2 printf "Missing argument for database\n"
+	else
+		NETWORK_NAME="${2}" docker-compose up -d ${3}
 	fi;
 	;;
 'down')
-	docker-compose down
+	if [ ! "${2}" ]; then
+		>&2 printf "Missing argument for docker network (see \"docker network ls\")\n"
+	else
+		docker-compose down
+	fi;
 	;;
 'logs')
 	docker-compose logs
@@ -41,8 +47,10 @@ case "${1}" in
 	;&
 *)
 	printf "$(cat <<EOF
-up {demo_db | oracle}                  Start PostgreSQL or Oracle demo database
-down                                   Stop PostgreSQL and Oracle demo database
+up <docker-network> <database>         Start PostgreSQL or Oracle demo database (allowed values: demo_db,oracle)
+                                           Docker networks can be listed using 'docker network ls'
+down <docker-network>                  Stop PostgreSQL and Oracle demo database
+                                           Docker networks can be listed using 'docker network ls'
 logs                                   Print PostgreSQL and Oracle demo database logs
 
 help                                   Display this help text
