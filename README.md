@@ -61,7 +61,7 @@ The [CYBERTEC Migrator](https://github.com/cybertec-postgresql/cybertec_migrator
   ```sh
   # Starting an Oracle instance takes some time.
   # You can connect to the database when 'docker ps' shows a 'healthy' status.
-  ./demo_env up oracle
+  ./demo-env up oracle
   ```
 
 * The following command will stop all running instances
