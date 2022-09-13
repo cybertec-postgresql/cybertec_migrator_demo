@@ -26,7 +26,7 @@ The following table shows the connection strings, user and passwords provided by
 
 | Parameter   | Migrator connection string   | User     | Password  |
 |-------------|------------------------------|----------|-----------|
-| `demo_db`   | postgresql://demo:5432/demo   | demo     | demo      |
+| `demo_db`   | postgresql://demo_db:5432/demo   | demo     | demo      |
 | `oracle`    | oracle://oracle:1521/xepdb1  | migrator | migrator  |
 
 ## Installation
