@@ -28,14 +28,14 @@ case "${1}" in
 	if [ ! "${2}" ]; then
 		>&2 printf "Missing argument for database\n"
 	else
-		NETWORK_NAME="${3:-${FALLBACK_NETWORK}}" docker-compose up -d ${2}
+		NETWORK_NAME="${3:-${FALLBACK_NETWORK}}" docker compose up -d ${2}
 	fi;
 	;;
 'down')
-	NETWORK_NAME="${2:-${FALLBACK_NETWORK}}" docker-compose down
+	NETWORK_NAME="${2:-${FALLBACK_NETWORK}}" docker compose down
 	;;
 'logs')
-	docker-compose logs
+	docker compose logs
 	;;
 'help')
 	catch_all_exit_code='0'
